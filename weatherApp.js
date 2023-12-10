@@ -8,11 +8,17 @@ export class WeatherApp {
     }
 
     async asyncFetchData (url) {
-        let response = await fetch(url);
-        let jsonResponse = await response.json();
-        console.log(jsonResponse);
-        this.updateDOM(jsonResponse);
-        this.isLoading = false;
+        try{
+            let response = await fetch(url);
+            let jsonResponse = await response.json();
+            this.updateDOM(jsonResponse);
+        } 
+        catch (error) {
+            console.error(error);
+        }
+        finally{
+            this.isLoading = false;
+        }
     }
 
     fetchData = () => {
